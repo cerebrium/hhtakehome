@@ -53,15 +53,66 @@ const MainContent = () => {
   useEffect(() => {
     let amountOfData = 0
     if (mainColor !== null) {
+      console.log(mainColor, `rbg(${mainColor.red}, ${mainColor.green}, ${mainColor.blue})`)
       setColorBox(
-        <div
-          style={{
-            backgroundColor: `${mainColor.color}`
-          }}
-          className='mainColorBox'
-        >
-          <div className='mainColorBoxLabel'>
-            <h3>{mainColor.name}</h3>
+        <div className='bigColorContainer'>
+          <div
+            style={{
+              backgroundColor: `${mainColor.color}`
+            }}
+            className='mainColorBox'
+          >
+            <div className='mainColorBoxLabel'>
+              <h3>{mainColor.name}</h3>
+            </div>
+          </div>
+          <div className='varietyColorsContainer'>
+            <div
+              style={{
+                backgroundColor: `rgb(${mainColor.red > 0 ? mainColor.red/3 : mainColor.red}, ${mainColor.green > 0 ? mainColor.green/3 : mainColor.green}, ${mainColor.blue > 0 ? mainColor.blue/3 : mainColor.blue})`
+              }}
+              className='mainColorBoxMini'
+            >
+              <div className='miniLabelBox'>
+                {`rgb(${mainColor.red > 0 ? mainColor.red / 3 : mainColor.red}, ${mainColor.green > 0 ? mainColor.green / 3 : mainColor.green}, ${mainColor.blue > 0 ? mainColor.blue / 3 : mainColor.blue})`}
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: `rgb(${mainColor.red > 0 ? mainColor.red/2 : mainColor.red}, ${mainColor.green > 0 ? mainColor.green/2 : mainColor.green}, ${mainColor.blue > 0 ? mainColor.blue/2 : mainColor.blue})`
+              }}
+              className='mainColorBoxMini'
+            >
+              <div className='miniLabelBox'>
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: `rgb(${mainColor.red}, ${mainColor.green}, ${mainColor.blue})`
+              }}
+              className='mainColorBoxMini'
+            >
+              <div className='miniLabelBox'>
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: `rgb(${mainColor.red < 255 ? (mainColor.red + 255)/2 : mainColor.red}, ${mainColor.green < 255 ? (mainColor.green + 255)/2 : mainColor.green}, ${mainColor.blue < 255 ? (mainColor.blue + 255)/2 : mainColor.blue})`
+              }}
+              className='mainColorBoxMini'
+            >
+              <div className='miniLabelBox'>
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: `rgb(${mainColor.red < 255 ? ((mainColor.red + 255)/2 + 255)/2 : mainColor.red}, ${mainColor.green < 255 ? ((mainColor.green + 255)/2 + 255)/2: mainColor.green}, ${mainColor.blue < 255 ? ((mainColor.blue + 255)/2 + 255)/2 : mainColor.blue})`
+              }}
+              className='mainColorBoxMini'
+            >
+              <div className='miniLabelBox'>
+              </div>
+            </div>
           </div>
         </div>
       )

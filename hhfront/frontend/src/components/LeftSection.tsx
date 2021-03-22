@@ -57,10 +57,18 @@ const LeftSection = () => {
     })
     setColorNameArray(localRenderArray)
   }, [localColorList])
+
+  // select a random color
+  const handleRandomSelection = () => {
+    let maxNumber = localColorList.length
+    if (localColorList[Math.floor(Math.random() * Math.floor(maxNumber))]) {
+      dispatch(selectColor(localColorList[Math.floor(Math.random() * Math.floor(maxNumber))]))
+    }
+  }
   
   return (
     <div className="leftSelectionContainer">
-      <button>
+      <button onClick={ handleRandomSelection}>
         Random Color
       </button>
       <div className='namesContainer'>

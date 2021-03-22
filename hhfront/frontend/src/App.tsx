@@ -77,9 +77,9 @@ function App() {
           sat: sat,
           val: val,
           luma: 0.3 * r + 0.59 * g + 0.11 * b,
-          red: parseInt(hexInput.color.substring(0, 2), 16),
-          green: parseInt(hexInput.color.substring(2, 4), 16),
-          blue: parseInt(hexInput.color.substring(4, 6), 16)
+          red: parseInt(hexInput.color.substring(1, 3), 16),
+          green: parseInt(hexInput.color.substring(3, 5), 16),
+          blue: parseInt(hexInput.color.substring(5, 7), 16)
         }
         return colorObj;
       };

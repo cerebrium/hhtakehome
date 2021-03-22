@@ -89,11 +89,19 @@ const MainContent = () => {
       })
       let pageChangeArray = []
       for (let i = 1; i <= Math.ceil(amountOfData / 16); i++) {
-        pageChangeArray.push(
-          <h3 onClick={(e) => handleSelectPage(e, i)}>
-            {i}
-          </h3>
-        )
+        if (i === currentPage) {
+          pageChangeArray.push(
+            <h3 onClick={(e) => handleSelectPage(e, i)} id='selectedPage'>
+              {i}
+            </h3>
+          )
+        } else {
+          pageChangeArray.push(
+            <h3 onClick={(e) => handleSelectPage(e, i)}>
+              {i}
+            </h3>
+          )
+        }
       }
       setColorBox(undefined)
       setSmallColorBoxes(

@@ -60,6 +60,9 @@ const LeftSection = () => {
   
   return (
     <div className="leftSelectionContainer">
+      <button>
+        Random Color
+      </button>
       <div className='namesContainer'>
         {colorNameArray}
       </div>

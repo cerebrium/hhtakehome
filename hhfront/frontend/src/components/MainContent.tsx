@@ -19,8 +19,11 @@ const MainContent = () => {
   // local state for rendering
   const [colorBox, setColorBox] = useState<JSX.Element>()
   const [localColorList, setLocalColorList] = useState<Array<ColorObject>>([])
-  const [smallColorBoxes, setSmallColorBoxes] = useState<Array<JSX.Element>>([])
+  const [smallColorBoxes, setSmallColorBoxes] = useState<JSX.Element>()
   const [toggleMenu, setToggleMenu] = useState<JSX.Element>()
+
+  // handling the scroll
+  const [currentPage, setCurrentPage] = useState<number>(1)
   
 
   // handle mapping the redux state into local state
@@ -38,13 +41,18 @@ const MainContent = () => {
 
   // dispatch the selected color to redux
   const handleSelectColor = (e: React.SyntheticEvent, selectedColor: ColorObject) => {
-    e.preventDefault()
     dispatch(selectColor(selectedColor))
+  }
+
+  // function for changing the page
+  const handleSelectPage = (e: any, i: number) => {
+    setCurrentPage(i)
   }
 
   // render main color switch
   useEffect(() => {
-    if (mainColor) {
+    let amountOfData = 0
+    if (mainColor !== null) {
       setColorBox(
         <div
           style={{
@@ -59,37 +67,74 @@ const MainContent = () => {
       )
     } else {
       let mappedColorItems = localColorList.map((item, itemId) => {
-        return (
-          <div
-            style={{
-              backgroundColor: `${item.color}`
-            }}
-            className='smallColorBox'
-            key={itemId}
-            onClick={(e) => handleSelectColor(e, item)}
-          >
-            <div className='smallColorBoxLabel'>
-              <h3>{item.name}</h3>
+        if (itemId < currentPage * 16 && itemId > currentPage * 16 - 16) {
+          amountOfData++
+          return (
+            <div
+              style={{
+                backgroundColor: `${item.color}`
+              }}
+              className='smallColorBox'
+              key={itemId}
+              onClick={(e) => handleSelectColor(e, item)}
+            >
+              <div className='smallColorBoxLabel'>
+                <h3>{item.name}</h3>
+              </div>
             </div>
-          </div>
-        )
+          )
+        } else {
+          amountOfData++
+        }
       })
-      setSmallColorBoxes(mappedColorItems)
+      let pageChangeArray = []
+      for (let i = 1; i <= Math.ceil(amountOfData / 16); i++) {
+        pageChangeArray.push(
+          <h3 onClick={(e) => handleSelectPage(e, i)}>
+            {i}
+          </h3>
+        )
+      }
+      setColorBox(undefined)
+      setSmallColorBoxes(
+        <div className='smallListContainer'>
+          <div className='smallItems'>
+            {mappedColorItems}
+          </div>
+          <div className='pageChangerContainer'>
+            {pageChangeArray}
+          </div>
+        </div>
+      )
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainColor, localColorList])
+  }, [mainColor, localColorList, currentPage])
+
+  // function to remove selected color
+  const handleRemoveSelectedColor = () => {
+    dispatch(selectColor(null))
+  }
 
   // add the toggle menu
   useEffect(() => {
-    if (colorBox) {
+    if (colorBox !== undefined) {
       setToggleMenu(
-        <div className='toggleMenuContainer'>
+        <div className='toggleMenuContainer' onClick={ handleRemoveSelectedColor}>
           <div className='firstLine'></div>
           <div className='secondLine'></div>
           <div className='thirdLine'></div>
         </div>
       )
+    } else {
+      setToggleMenu(
+        <div className='toggleMenuContainerList'>
+          <div className='firstLineMenu'></div>
+          <div className='secondLineMenu'></div>
+          <div className='thirdLineMenu'></div>
+        </div>
+      )
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colorBox])
 
   return (

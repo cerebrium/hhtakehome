@@ -31,10 +31,10 @@ const LeftSection = () => {
     setLocalColorList(localSortableArray)
   }, [colorList])
   
-    // dispatch the selected color to redux
+  // dispatch the selected color to redux
   const handleSelectColor = (e: React.SyntheticEvent, selectedColor: ColorObject) => {
     e.preventDefault()
-
+    dispatch(selectColor(selectedColor))
   }
   
   // map the items into a rendered array

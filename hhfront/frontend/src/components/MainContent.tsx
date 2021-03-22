@@ -20,6 +20,7 @@ const MainContent = () => {
   const [colorBox, setColorBox] = useState<JSX.Element>()
   const [localColorList, setLocalColorList] = useState<Array<ColorObject>>([])
   const [smallColorBoxes, setSmallColorBoxes] = useState<Array<JSX.Element>>([])
+  const [toggleMenu, setToggleMenu] = useState<JSX.Element>()
   
 
   // handle mapping the redux state into local state
@@ -75,11 +76,26 @@ const MainContent = () => {
       })
       setSmallColorBoxes(mappedColorItems)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainColor, localColorList])
+
+  // add the toggle menu
+  useEffect(() => {
+    if (colorBox) {
+      setToggleMenu(
+        <div className='toggleMenuContainer'>
+          <div className='firstLine'></div>
+          <div className='secondLine'></div>
+          <div className='thirdLine'></div>
+        </div>
+      )
+    }
+  }, [colorBox])
 
   return (
     <div className="mainContentContainer">
       <div className='mainBoxContainer'>
+        {toggleMenu}
         {colorBox ? colorBox : smallColorBoxes}
       </div>
     </div>

@@ -10,8 +10,6 @@ import {
 import { useSelector, useDispatch  } from 'react-redux';
 import { ColorObject } from '../types'
 
-// backend : vast-fortress-87333
-
 const MainContent = () => {
   const dispatch = useDispatch();
 
@@ -51,6 +49,7 @@ const MainContent = () => {
     let amountOfData = 0
     if (mainColor !== null) {
       setColorBox(
+        // main color box
         <div className='bigColorContainer'>
           <div
             style={{
@@ -62,6 +61,7 @@ const MainContent = () => {
               <h3>{mainColor.name}</h3>
             </div>
           </div>
+          {/* build the variety of colors based off averaging closer to the 0 or 255 rbg. apply to all. middle is the main color. convert name to hex as per the picture  */}
           <div className='varietyColorsContainer'>
             <div
               style={{
@@ -122,6 +122,7 @@ const MainContent = () => {
         </div>
       )
     } else {
+      // paginate the data - could be done via the backend, but seems faster with a small data set to limit the backend requests
       let mappedColorItems = colorList.map((item, itemId) => {
         if (itemId < currentPage * 12 && itemId > currentPage * 12 - 13) {
           amountOfData++

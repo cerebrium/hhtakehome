@@ -12,6 +12,7 @@ const LeftSection = () => {
   // create redux selectors
   const colorList = useSelector(selectColorList)
   
+  // allow for selecting a color
   const dispatch = useDispatch();
 
   // local state for rendering
@@ -23,7 +24,7 @@ const LeftSection = () => {
     dispatch(selectColor(selectedColor))
   }
   
-  // map the items into a rendered array
+  // map the items into a rendered array - when the sort changes on main page this updates
   useEffect(() => {
     let localRenderArray: Array<JSX.Element> = []
   

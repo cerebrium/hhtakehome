@@ -16,21 +16,7 @@ const LeftSection = () => {
 
   // local state for rendering
   const [colorNameArray, setColorNameArray] = useState<Array<JSX.Element>>([])
-  const [ localColorList, setLocalColorList ] = useState<Array<ColorObject>>([])
 
-  // handle mapping the redux state into local state
-  useEffect(() => {
-    let localSortableArray: Array<ColorObject> = []
-
-    // use the object deconstruction so it can be sorted later
-    colorList.forEach(item => {
-      localSortableArray.push(
-        {...item}
-      )
-    })
-    setLocalColorList(localSortableArray)
-  }, [colorList])
-  
   // dispatch the selected color to redux
   const handleSelectColor = (e: React.SyntheticEvent, selectedColor: ColorObject) => {
     e.preventDefault()
@@ -41,8 +27,7 @@ const LeftSection = () => {
   useEffect(() => {
     let localRenderArray: Array<JSX.Element> = []
   
-    localColorList.sort( (a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
-    localColorList.forEach(item => {
+    colorList.forEach(item => {
       if (item.name !== 'Black') {
         localRenderArray.push(
           <div
@@ -56,13 +41,13 @@ const LeftSection = () => {
       }
     })
     setColorNameArray(localRenderArray)
-  }, [localColorList])
+  }, [colorList])
 
   // select a random color
   const handleRandomSelection = () => {
-    let maxNumber = localColorList.length
-    if (localColorList[Math.floor(Math.random() * Math.floor(maxNumber))]) {
-      dispatch(selectColor(localColorList[Math.floor(Math.random() * Math.floor(maxNumber))]))
+    let maxNumber = colorList.length
+    if (colorList[Math.floor(Math.random() * Math.floor(maxNumber))]) {
+      dispatch(selectColor(colorList[Math.floor(Math.random() * Math.floor(maxNumber))]))
     }
   }
   

@@ -29,7 +29,7 @@ function App() {
 
   // grab the selection of colors
   useEffect(() => {
-    getData('http://localhost:8080').then(response => {
+    getData('https://nameless-badlands-02590.herokuapp.com/').then(response => {
       // array to be saved in state
       let sortableColorsArray: Array<ColorObject> = []
 
@@ -68,6 +68,7 @@ function App() {
           }
         }
 
+        // make objects so they can be sorted in the main page
         let colorObj: ColorObject = {
           _id: hexInput._id,
           color: hexInput.color,
@@ -85,8 +86,10 @@ function App() {
       };
 
       // create new color objects that are easily sortable
-      response.forEach( (item: ColorType )=> {
-        sortableColorsArray.push(createColorObj(item))
+      response.forEach((item: ColorType) => {
+        if (item.name !== 'Black') {
+          sortableColorsArray.push(createColorObj(item))
+        }
       })
 
       // initial sort

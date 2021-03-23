@@ -428,15 +428,6 @@ body, html {
 					}
 				}
 
-				// change the flex direction
-				@keyframes flexDirectionChange {
-					0% {
-						flex-direction: row;
-					} 
-					100% {
-						flex-direction: column;
-					}
-				}
 				cursor: pointer;
 				position: absolute;
 				width: 30px;
@@ -446,9 +437,15 @@ body, html {
 				top: 10px;
 				border: none;
 				display: flex;
+				display: -webkit-box;
+				display: -moz-box;
+				display: -ms-flexbox;
+				display: -moz-flex;
+				display: -webkit-flex;
+				display: flex;
 				align-items: center;
 				justify-content: center;
-				animation: flexDirectionChange .3s linear forwards;
+				flex-direction: column;
 
 				///// for the menu
 				.firstLineMenu {
